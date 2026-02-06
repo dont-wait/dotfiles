@@ -113,7 +113,7 @@ alias cz="nvim .zshrc"
 alias sz="source .zshrc"
 alias cls="clear"
 alias "sudo rm"="rm -i"
-
+alias lzd=lazydocker
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
