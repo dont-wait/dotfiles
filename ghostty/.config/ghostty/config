@@ -1,6 +1,6 @@
 font-family = "JetbrainMono Nerd Font"
-background-opacity = 0.81
-background-blur-radius = 0
+background-opacity = 0.40
+background-blur-radius = 30
 title = ""
 theme = Catppuccin Macchiato
 cursor-opacity = 0.90 
@@ -13,3 +13,9 @@ keybind = alt+down=goto_split:down
 keybind = alt+up=goto_split:up
 keybind = alt+right=goto_split:right
 keybind = alt+enter=toggle_maximize
+
+# background 
+background-image = "/home/dontwait/dotfiles/bg/itachi.jpg"
+background-image-fit = cover
+background-blur = true
+background-image-position = center
