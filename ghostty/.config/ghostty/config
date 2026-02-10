@@ -1,4 +1,3 @@
-# theme = "rose-pine"
 font-family = "JetbrainMono Nerd Font"
 background-opacity = 0.81
 background-blur-radius = 0
@@ -6,10 +5,11 @@ title = ""
 theme = Catppuccin Macchiato
 cursor-opacity = 0.90 
 adjust-cursor-thickness = 1
+window-decoration = false
 
 # key map
 keybind = alt+left=goto_split:left
 keybind = alt+down=goto_split:down
 keybind = alt+up=goto_split:up
 keybind = alt+right=goto_split:right
-keybind = alt+enter=toggle_fullscreen
+keybind = alt+enter=toggle_maximize
