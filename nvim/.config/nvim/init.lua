@@ -16,6 +16,8 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.g.mapleader = " " 
+vim.g.maplocalleader = " "
 -- install plugins and options
 require("vim-options")
 require("vim-helpers")
