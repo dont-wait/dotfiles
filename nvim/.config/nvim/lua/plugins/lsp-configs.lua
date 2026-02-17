@@ -12,7 +12,7 @@ return {
 		opts = {
 			auto_install = true,
 			-- manually install packages that do not exist in this list please
-			ensure_installed = { "zls", "gopls", "ts_ls" },
+			ensure_installed = { "zls", "ts_ls" },
 		},
 	},
 	{
