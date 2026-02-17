@@ -122,3 +122,13 @@ export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {}'"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# Hàm cập nhật tên window tmux theo thư mục hiện tại (chỉ lấy tên thư mục cuối)
+case $TERM in
+  screen*|tmux*)
+    precmd() {
+      print -Pn "\e]2;%1~\a" # Cập nhật tiêu đề terminal
+      tmux rename-window "$(basename "$PWD")"
+    }
+    ;;
+esac
