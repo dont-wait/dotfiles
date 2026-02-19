@@ -1,31 +1,20 @@
 return {
-	"nvim-treesitter/nvim-treesitter",
-	--build = ":TSUpdate",
-	config = function()
-		local config = require("nvim-treesitter.config")
-		config.setup({
-			-- auto install
-			auto_install = true,
-			-- add language you want to highlight in code
-			ensure_installed = {
-				"c",
-				"lua",
-				"vim",
-				"javascript",
-				"typescript",
-				"tsx",
-				"html",
-				"go",
-				"gomod",
-				"gowork",
-				"gosum",
-				"java",
-				"json",
-				"zig",
-			},
-			sync_install = false,
-			highlight = { enable = true },
-			indent = { enable = true },
-		})
-	end,
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+        require("nvim-treesitter.config").setup({
+            ensure_installed = {
+                "c", "lua", "vim", "javascript", "typescript",
+                "tsx", "html", "go", "gomod", "gowork", "gosum",
+                "java", "json", "zig",
+            },
+        })
+
+        -- Enable highlight tự động cho tất cả filetype
+        vim.api.nvim_create_autocmd("FileType", {
+            callback = function()
+                pcall(vim.treesitter.start)
+            end,
+        })
+    end,
 }
