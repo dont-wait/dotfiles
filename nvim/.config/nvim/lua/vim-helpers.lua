@@ -18,7 +18,7 @@ vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 -- copy current file path (absolute) into clipboard
 vim.keymap.set("n", "<leader>cp", function()
     local filepath = vim.fn.expand("%:p")
-    vim.fn.setreg("+", filepath)                     -- Copy to Neovim clipboard
+    vim.fn.setreg("+", filepath)                        -- Copy to Neovim clipboard
     vim.fn.system("echo '" .. filepath .. "' | pbcopy") -- Copy to macOS clipboard
     print("Copied: " .. filepath)
 end, { desc = "Copy absolute path to clipboard" })
@@ -163,12 +163,22 @@ vim.api.nvim_create_user_command("ShowTree", function()
     }
 
     local win = vim.api.nvim_open_win(buf, true, opts)
-    local job_id = vim.fn.jobstart("tree -L 4", {
+    local job_id = vim.fn.jobstart({ "bash", "-c", "tree -L 10" }, {
         stdout_buffered = true,
+        stderr_buffered = true,
         on_stdout = function(_, data)
             if data then
                 for _, line in ipairs(data) do
                     vim.api.nvim_buf_set_lines(buf, -1, -1, true, { line })
+                end
+            end
+        end,
+        on_stderr = function(_, data)
+            if data then
+                for _, line in ipairs(data) do
+                    if line ~= "" then
+                        vim.api.nvim_buf_set_lines(buf, -1, -1, true, { "[ERR] " .. line })
+                    end
                 end
             end
         end,
