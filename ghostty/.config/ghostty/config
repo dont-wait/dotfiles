@@ -15,7 +15,7 @@ keybind = alt+right=goto_split:right
 keybind = alt+enter=toggle_maximize
 
 # background 
-background-image = "/home/dontwait/dotfiles/bg/itachi.jpg"
+background-image = "/home/dontwait/dotfiles/bg/nix-girl2.png"
 background-image-fit = cover
 background-blur = true
 background-image-position = center
