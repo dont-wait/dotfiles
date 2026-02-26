@@ -1,9 +1,9 @@
 font-family = "JetbrainMono Nerd Font"
-background-opacity = 0.40
-background-blur-radius = 30
+background-opacity = 0.9
+background-blur-radius = 90
 title = ""
 theme = Catppuccin Macchiato
-cursor-opacity = 0.90 
+cursor-opacity = 1.0 
 adjust-cursor-thickness = 1
 window-decoration = false
 
@@ -19,5 +19,5 @@ background-image = "/home/dontwait/dotfiles/bg/nix-girl2.png"
 background-image-fit = cover
 background-blur = true
 background-image-position = center
-
+background-image-opacity = 0.15
 
