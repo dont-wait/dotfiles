@@ -12,7 +12,7 @@ return {
         opts = {
             auto_install = true,
             -- manually install packages that do not exist in this list please
-            ensure_installed = { "zls", "ts_ls", "gopls" },
+            ensure_installed = { "zls", "ts_ls", "gopls", "omnisharp" },
         },
     },
     {
@@ -69,7 +69,18 @@ return {
                         staticcheck = true,
                         gofumpt = true,
                         completeUnimported = true, -- Tự động gợi ý cả các package chưa import
-                        usePlaceholders = true, -- Tự động điền tham số khi chọn hàm
+                        usePlaceholders = true,    -- Tự động điền tham số khi chọn hàm
+                    },
+                },
+            }
+
+            vim.lsp.config["omnisharp"] = {
+                capabilities = capabilities,
+                settings = {
+                    omnisharp = {
+                        enableRoslynAnalyzers = true,
+                        enableEditorConfigSupport = true,
+                        organizeImportsOnFormat = true,
                     },
                 },
             }
@@ -137,6 +148,7 @@ return {
                 "pyright",
                 "bashls",
                 "asm_lsp",
+                "omnisharp",
             })
             -- lsp kepmap setting
             vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
