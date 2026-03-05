@@ -39,6 +39,7 @@ return {
                 width = 0.6,
                 height = 0.5,
             },
+            context = "buffers",
             clear_chat_on_new_prompt = false, -- giữ lại lịch sử chat
             highlight_selection = true,       -- highlight code đang được hỏi
             system_prompt = [[
