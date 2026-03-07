@@ -163,7 +163,7 @@ vim.api.nvim_create_user_command("ShowTree", function()
     }
 
     local win = vim.api.nvim_open_win(buf, true, opts)
-    local job_id = vim.fn.jobstart({ "bash", "-c", "tree -L 10" }, {
+    local job_id = vim.fn.jobstart({ "bash", "-c", "tree -L 4" }, {
         stdout_buffered = true,
         stderr_buffered = true,
         on_stdout = function(_, data)

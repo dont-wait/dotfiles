@@ -86,7 +86,7 @@ return {
                     { name = "buf_ls" },
                     { name = "render-markdown" },
                     { name = "cobol_ls" },
-                    { name = "copilot", group_index = 1},
+                    { name = "copilot", group_index = 2},
                 }),
             })
         end,

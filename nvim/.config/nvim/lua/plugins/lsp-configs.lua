@@ -70,6 +70,14 @@ return {
                         gofumpt = true,
                         completeUnimported = true, -- Tự động gợi ý cả các package chưa import
                         usePlaceholders = true,    -- Tự động điền tham số khi chọn hàm
+                        -- hints = {
+                        --     assignVariableTypes = true,
+                        --     compositeLiteralFields = true,
+                        --     constantValues = true,
+                        --     functionTypeParameters = true,
+                        --     parameterNames = true,
+                        --     rangeVariableTypes = true,
+                        -- },
                     },
                 },
             }
@@ -158,6 +166,14 @@ return {
             vim.keymap.set("n", "gr", vim.lsp.buf.references, {})
             vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
             vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+            vim.api.nvim_create_autocmd("LspAttach", {
+                callback = function(args)
+                    local client = vim.lsp.get_client_by_id(args.data.client_id)
+                    if client and client.supports_method("textDocument/inlayHint") then
+                        vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+                    end
+                end,
+            })
             -- list all methods in a file
             -- working with go confirmed, don't know about other, keep changing as necessary
             vim.keymap.set("n", "<leader>fm", function()

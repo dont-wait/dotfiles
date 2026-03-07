@@ -27,7 +27,7 @@ local config = {
         "-Declipse.product=org.eclipse.jdt.ls.core.product",
         "-Dlog.protocol=true",
         "-Dlog.level=ALL",
-        "-Xmx1g",
+        "-Xmx2g",
         "--add-modules=ALL-SYSTEM",
         "--add-opens",
         "java.base/java.util=ALL-UNNAMED",
@@ -105,3 +105,12 @@ vim.keymap.set(
     "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>",
     { desc = "Extract Method" }
 )
+vim.api.nvim_create_autocmd("LspAttach", {
+    buffer = 0,
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client and client.name == "jdtls" then
+            vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+        end
+    end,
+})
