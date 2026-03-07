@@ -70,14 +70,6 @@ return {
                         gofumpt = true,
                         completeUnimported = true, -- Tự động gợi ý cả các package chưa import
                         usePlaceholders = true,    -- Tự động điền tham số khi chọn hàm
-                        -- hints = {
-                        --     assignVariableTypes = true,
-                        --     compositeLiteralFields = true,
-                        --     constantValues = true,
-                        --     functionTypeParameters = true,
-                        --     parameterNames = true,
-                        --     rangeVariableTypes = true,
-                        -- },
                     },
                 },
             }
