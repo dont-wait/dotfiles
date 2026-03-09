@@ -81,6 +81,14 @@ return {
                         enableRoslynAnalyzers = true,
                         enableEditorConfigSupport = true,
                         organizeImportsOnFormat = true,
+
+                        -- enableDecompilationSupport = true,
+                        -- enableImportCompletion = true,
+                    },
+                    RoslynExtensionsOptions = {
+                        enableDecompilationSupport = true,
+                        enableImportCompletion = true,
+                        enableAnalyzersSupport = true,
                     },
                 },
             }
@@ -158,15 +166,7 @@ return {
             vim.keymap.set("n", "gr", vim.lsp.buf.references, {})
             vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
             vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
-            vim.api.nvim_create_autocmd("LspAttach", {
-                callback = function(args)
-                    local client = vim.lsp.get_client_by_id(args.data.client_id)
-                    if client and client.supports_method("textDocument/inlayHint") then
-                        vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
-                    end
-                end,
-            })
-            -- list all methods in a file
+            vim.lsp.inlay_hint.enable(true) -- list all methods in a file
             -- working with go confirmed, don't know about other, keep changing as necessary
             vim.keymap.set("n", "<leader>fm", function()
                 local filetype = vim.bo.filetype
