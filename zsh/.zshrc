@@ -132,3 +132,7 @@ case $TERM in
     }
     ;;
 esac
+eval "$(direnv hook zsh)"
+
+. "$HOME/.local/bin/env"
+export PATH="$HOME/.npm-global/bin:$PATH"
