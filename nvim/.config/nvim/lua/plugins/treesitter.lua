@@ -6,7 +6,7 @@ return {
             ensure_installed = {
                 "c", "lua", "vim", "javascript", "typescript",
                 "tsx", "html", "go", "gomod", "gowork", "gosum",
-                "java", "json", "zig", "python",
+                "java", "json", "zig",
             },
             highlight = {enable = true},
         })

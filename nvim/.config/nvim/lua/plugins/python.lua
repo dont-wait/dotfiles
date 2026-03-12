@@ -1,10 +1,11 @@
-require("lspconfig").pylsp.setup({
-    settings = {
-        pylsp = {
-            plugins = {
-                black = { enabled = true },
-                isort = { enabled = true },
+return {
+    "stevearc/conform.nvim",
+    config = function()
+        require("conform").setup({
+            formatters_by_ft = {
+                python = { "black" },
             },
-        },
-    },
-})
+            format_on_save = { timeout_ms = 500 },
+        })
+    end,
+}

@@ -78,7 +78,7 @@ return {
                     { name = "zls" },
                     { name = "buffer", group_index = 2 },
                     { name = "path", group_index = 2 },
-                    { name = "pylsp" },
+                    { name = "pyright" },
                     { name = "gci" },
                     { name = "ts_ls" },
                     { name = "gopls" },
