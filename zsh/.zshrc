@@ -113,6 +113,7 @@ alias sz="source .zshrc"
 alias cls="clear"
 alias "sudo rm"="rm -i"
 alias lzd=lazydocker
+alias lzg=lazygit
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -133,6 +134,7 @@ case $TERM in
     ;;
 esac
 eval "$(direnv hook zsh)"
+eval "$(devbox global shellenv)"
 
 . "$HOME/.local/bin/env"
 export PATH="$HOME/.npm-global/bin:$PATH"
