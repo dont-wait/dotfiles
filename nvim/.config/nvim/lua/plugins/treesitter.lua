@@ -6,8 +6,9 @@ return {
             ensure_installed = {
                 "c", "lua", "vim", "javascript", "typescript",
                 "tsx", "html", "go", "gomod", "gowork", "gosum",
-                "java", "json", "zig",
+                "java", "json", "zig", "python",
             },
+            highlight = {enable = true},
         })
 
         -- Enable highlight tự động cho tất cả filetype
