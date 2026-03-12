@@ -8,7 +8,7 @@ return {
                 "tsx", "html", "go", "gomod", "gowork", "gosum",
                 "java", "json", "zig",
             },
-            highlight = {enable = true},
+            highlight = { enable = true },
         })
 
         -- Enable highlight tự động cho tất cả filetype

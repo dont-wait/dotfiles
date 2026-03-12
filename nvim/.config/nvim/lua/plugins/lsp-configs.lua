@@ -117,8 +117,19 @@ return {
                 capabilities = capabilities,
             }
             -- python
-            vim.lsp.config["pyright"] = {
+            vim.lsp.config["pylsp"] = {
                 capabilities = capabilities,
+                settings = {
+                    pylsp = {
+                        plugins = {
+                            black = { enabled = true },
+                            isort = { enabled = true },
+                            jedi = {
+                                environment = "./venv"
+                            },
+                        },
+                    },
+                },
             }
 
             -- bash
@@ -153,7 +164,7 @@ return {
                 "docker_compose_language_service",
                 "cobol_ls",
                 "svelte",
-                "pyright",
+                "pylsp",
                 "bashls",
                 "asm_lsp",
                 "omnisharp",
