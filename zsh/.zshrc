@@ -114,6 +114,7 @@ alias cls="clear"
 alias "sudo rm"="rm -i"
 alias lzd=lazydocker
 alias lzg=lazygit
+alias hh="~"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
