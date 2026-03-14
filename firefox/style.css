@@ -22,10 +22,22 @@
 /* Extensions button */
 #unified-extensions-button {
     position: absolute !important;
-    opacity: 0 !important;
+    /* opacity: 0 !important; */
+    display: none !important;
   size: 1px !important;
 }
 
+/*hide sidebar button*/
+#sidebar-box,
+#sidebar-splitter,
+#sidebar-button {
+  display: none !important;
+}
+
+/* Hide reload button */
+#stop-reload-button {
+  display: none !important;
+}
 /* Extension name inside URL bar */
 #identity-box.extensionPage #identity-icon-label {
   visibility: collapse !important
@@ -211,3 +223,4 @@
     cursor: pointer;
     display: -moz-box !important;
 }
+
