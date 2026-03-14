@@ -13,7 +13,7 @@ return {
         ---@type lc.lang
         lang = "java",
 
-        cn = {     -- leetcode.cn
+        cn = { -- leetcode.cn
             enabled = false, ---@type boolean
             translator = true, ---@type boolean
             translate_problems = true, ---@type boolean
