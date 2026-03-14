@@ -122,7 +122,7 @@
 /* tabs */
 .tabbrowser-tab:not(:hover):not([visuallyselected], [multiselected]) {
     transition: .5s !important;
-    filter: opacity(50%) !important;
+    filter: opacity(30%) !important;
 }
 
 #TabsToolbar #firefox-view-button[open] > .toolbarbutton-icon, .tabbrowser-tab:is([visuallyselected], [multiselected]) {
