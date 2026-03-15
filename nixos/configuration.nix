@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ lib, inputs, config, pkgs, ... }:
 
 {
   imports =
@@ -10,10 +10,15 @@
       ./hardware-configuration.nix
       ./languages.nix
     ];
-
+  
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.kernelParams = [ 
+  "video=HDMI-A-1:1920x1080@120"
+  "i915.enable_fbc=0"
+  ];
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -58,7 +63,9 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-
+  
+  hardware.graphics.enable = true;
+ 
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -67,6 +74,9 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  
+  # Enable Flatpak
+  services.flatpak.enable = true;
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -109,9 +119,19 @@
   
   programs.zsh.enable = true;
   programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc.lib
+    zlib
+  ];
+
   programs = {
    adb.enable = true;
   };
+
+  programs.bash.enableCompletion = true;
+
+  nixpkgs.config.allowBroken = true; 
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   
@@ -123,7 +143,7 @@
     '';
     deps = [
     ];
-  };
+    };
   };
 
   # List packages installed in system profile. To search, run:
@@ -134,7 +154,6 @@
     neovim
     wget
     git
-    i3
     dmenu
     networkmanagerapplet
     fastfetch
@@ -152,16 +171,26 @@
     qt6Packages.fcitx5-configtool
     stow
     tldr
-    pkg-config
-    android-studio
     stdenv.cc.cc
     zlib
     glib
     cmake
-    # Để render giao diện và font chữ (cần cho cả app và giả lập)
     fontconfig
     freetype
     libGL
+    obs-studio
+    gnutar
+    gzip
+    home-manager
+    tree-sitter
+    edid-decode
+    tree
+    brave
+    libreoffice-qt
+    hunspell
+    staruml
+    vmware-workstation
+    gnomeExtensions.hide-top-bar
  ];
   # NIXOS
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -185,12 +214,17 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  # VMWare config
+  virtualisation.vmware.host.enable = true;
+  virtualisation.vmware.guest.enable = true;
   
   # Garbage Collector Setting
   nix.gc.automatic = true;
   nix.gc.dates = "daily";
   nix.gc.options = "--delete-older-than 7d";
-  
+
+   
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
@@ -200,5 +234,3 @@
   system.stateVersion = "25.11"; # Did you read the comment?
 
 }
-
-

@@ -6,20 +6,19 @@
     # --- C/C++ ---
     gcc
     clang
+    gnumake
     # clang-tools # bao gồm clangd (LSP)
 
     # --- Node/Web ---
     nodejs
     nodePackages.typescript-language-server # LSP cho Typescript/Javascript
     nodePackages.vscode-langservers-extracted # Chứa LSP cho HTML, CSS, JSON, ESLint
+    yarn-berry_3
 
     # --- Lua ---
     lua-language-server
 
     # --- Go (Golang) ---
-    go
-    gopls # LSP chính chủ cho Go
-
     # --- Python ---
     python3
     pyright # LSP cho Python
@@ -32,11 +31,13 @@
     shellcheck # Linter
     bash-language-server # LSP cho Bash
 
-    # Flutter or others, lazyyyy
-    flutter
-    ninja
     pkg-config
+    ninja
     docker-compose
     lazydocker
+    lazygit
+    jdt-language-server
+    google-java-format
+    tree-sitter
   ];
 }
