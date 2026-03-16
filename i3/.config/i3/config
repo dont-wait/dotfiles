@@ -1,0 +1,156 @@
+# ========================
+# MOD KEY
+# ========================
+
+set $mod Mod4
+
+# ========================
+# FONT
+# ========================
+
+font pango:JetBrainsMono Nerd Font 16
+
+# ========================
+# TERMINAL
+# ========================
+
+set $term ghostty
+
+bindsym $mod+Return exec $term
+# ========================
+# APP LAUNCHER
+# ========================
+
+
+# ========================
+# APPLICATION SHORTCUTS
+# ========================
+
+bindsym $mod+Shift+f exec firefox
+bindsym $mod+Shift+d exec zathura
+
+# ========================
+# WINDOW CONTROL
+# ========================
+
+bindsym $mod+Shift+q kill
+
+bindsym $mod+r restart
+bindsym $mod+Shift+e exec i3-msg exit
+
+# ========================
+# FOCUS (vim style)
+# ========================
+
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# ========================
+# MOVE WINDOW
+# ========================
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# ========================
+# RESIZE
+# ========================
+
+bindsym $mod+Ctrl+h resize shrink width 10 px
+bindsym $mod+Ctrl+l resize grow width 10 px
+bindsym $mod+Ctrl+j resize shrink height 10 px
+bindsym $mod+Ctrl+k resize grow height 10 px
+
+# ========================
+# WORKSPACES
+# ========================
+
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+
+# ========================
+# SCRATCHPAD
+# ========================
+
+bindsym $mod+minus scratchpad show
+bindsym $mod+Shift+minus  move scratchpad
+bindsym $mod+Shift+space floating toggle
+# ========================
+# SCREENSHOT
+# ========================
+
+bindsym $mod+Shift+S exec --no-startup-id flameshot gui
+
+# ========================
+# AUDIO
+# ========================
+
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# ========================
+# WINDOW RULES
+# ========================
+
+for_window [class="firefox"] move to workspace $ws2
+
+default_border pixel 1
+
+# ========================
+# GAPS
+# ========================
+
+gaps inner 5
+gaps outer 2
+
+# ========================
+# BAR
+# ========================
+
+bar {
+    position top
+    tray_output none
+
+    colors {
+        background #000000
+        statusline #ffffff
+
+        focused_workspace  #89b4fa #89b4fa #1e1e2e
+        active_workspace   #313244 #313244 #cdd6f4
+        inactive_workspace #181825 #181825 #6c7086
+        urgent_workspace   #f38ba8 #f38ba8 #1e1e2e
+    }
+}
+
+bindsym $mod+b bar mode toggle
+bindsym $mod+d exec rofi -show drun 
+bindsym $mod+Shift+b exec blueman-manager
+#========================
+# AUTOSTART
+# ========================
+
+exec_always --no-startup-id picom
+exec_always --no-startup-id dunst
+exec_always --no-startup-id blueman-applet
+exec_always --no-startup-id nm-applet
+exec_always --no-startup-id feh --bg-fill ~/wallpapers/nix-girl2.png
