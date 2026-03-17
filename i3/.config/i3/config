@@ -38,14 +38,21 @@ bindsym $mod+Shift+q kill
 bindsym $mod+r restart
 bindsym $mod+Shift+e exec i3-msg exit
 bindsym $mod+Shift+p exec arandr
-bindsym $mod+F1 focus output eDP-1
-bindsym $mod+F2 focus output HDMI-1
 
 # just laptop screen
-bindsym $mod+F2 exec --no-startup-id xrandr --output eDP-1 --auto --primary --output HDMI-1 --off
-
+bindsym $mod+F1 exec --no-startup-id xrandr --output eDP-1 --auto --primary --output HDMI-1 --off
 # just second screen
-bindsym $mod+F3 exec --no-startup-id xrandr --output HDMI-1 --mode 1920x1080 --primary --output eDP-1 --off
+bindsym $mod+F2 exec --no-startup-id xrandr --output HDMI-1 --mode 1920x1080 --primary --output eDP-1 --off
+
+bindsym $mod+F3 focus output eDP-1
+bindsym $mod+F4 focus output HDMI-1
+
+# dual screen
+bindsym $mod+F5 exec --no-startup-id xrandr --output eDP-1 --auto --output HDMI-1 --mode 1920x1080 --right-of eDP-1
+
+bindsym $mod+Shift+F1 move container to output eDP-1
+bindsym $mod+Shift+F2 move container to output HDMI-1
+
 
 # ========================
 # FOCUS (vim style)
