@@ -216,7 +216,7 @@
      i3Support = true;
      pulseSupport = true;
      }) 
-
+     yazi
  ];
     # NIXOS
   nix.settings.experimental-features = ["nix-command" "flakes"];
