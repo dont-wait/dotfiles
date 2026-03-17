@@ -172,4 +172,4 @@ exec_always --no-startup-id dunst
 exec_always --no-startup-id blueman-applet
 exec_always --no-startup-id nm-applet
 exec_always --no-startup-id ~/.config/polybar/launch.sh
-exec_always --no-startup-id feh --bg-fill ~/wallpapers/itachi2.png
+exec_always --no-startup-id feh --bg-fill ~/dotfiles/bg/itachi2.png
