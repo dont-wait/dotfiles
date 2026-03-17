@@ -1,43 +1,61 @@
 { pkgs, ... }:
 
 {
-  # Tại đây khai báo các môi trường lập trình và LSP Server
+ # Tại đây khai báo các môi trường lập trình và LSP Server
   environment.systemPackages = with pkgs; [
-    # --- C/C++ ---
-    gcc
-    clang
-    gnumake
-    # clang-tools # bao gồm clangd (LSP)
+     # C/C++
+  gcc
+  clang
+  gnumake
 
-    # --- Node/Web ---
-    nodejs
-    nodePackages.typescript-language-server # LSP cho Typescript/Javascript
-    nodePackages.vscode-langservers-extracted # Chứa LSP cho HTML, CSS, JSON, ESLint
-    yarn-berry_3
+  # Node / Web
+  nodejs
+  nodePackages.typescript-language-server
+  nodePackages.vscode-langservers-extracted
+  yarn-berry_3
 
-    # --- Lua ---
-    lua-language-server
+  # Lua
+  lua-language-server
 
-    # --- Go (Golang) ---
-    # --- Python ---
-    python3
-    pyright # LSP cho Python
+  # Python
+  python3
+  pyright
 
-    # --- Nix ---
-    nil # LSP cho Nix
+  # Nix
+  nil
 
-    # --- Shell/Bash ---
-    shfmt # Formatter
-    shellcheck # Linter
-    bash-language-server # LSP cho Bash
+  # Bash
+  shfmt
+  shellcheck
+  bash-language-server
 
-    pkg-config
-    ninja
-    docker-compose
-    lazydocker
-    lazygit
-    jdt-language-server
-    google-java-format
-    tree-sitter
-  ];
+  # Java
+  jdt-language-server
+  google-java-format
+
+  # Tools
+  pkg-config
+  ninja
+  ripgrep
+  tree-sitter
+
+  # Git / docker
+  lazygit
+  lazydocker
+  docker-compose
+
+  # Extra LSP từ config cũ
+  gopls
+  gofumpt
+  stylua
+  basedpyright
+  ruff
+  nixfmt-rfc-style
+  zls
+  asm-lsp
+  websocat
+
+  lua51Packages.lua
+  lua51Packages.luarocks
+ ];
 }

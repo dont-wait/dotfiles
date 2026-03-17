@@ -11,6 +11,7 @@
       ./languages.nix
     ];
   
+  
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -62,10 +63,19 @@
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.desktopManager.gnome.enable = false; #turn true if u use gnome
+  
+  # Enable the i3 WM
+  services.xserver.windowManager.i3.enable = true;
+  
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  services.xserver.libinput.touchpad.naturalScrolling = true;
   
   hardware.graphics.enable = true;
- 
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -123,7 +133,6 @@
     stdenv.cc.cc.lib
     zlib
   ];
-
   programs = {
    adb.enable = true;
   };
@@ -163,7 +172,6 @@
     vscode-fhs
     curl
     unzip
-    showmethekey
     tmux  
     zathura 
     discord
@@ -190,9 +198,27 @@
     hunspell
     staruml
     vmware-workstation
-    gnomeExtensions.hide-top-bar
+    i3
+    xclip
+    # i3status
+    
+    dunst
+    feh
+    pavucontrol
+    flameshot
+    rofi
+    picom
+    blueman
+    arandr
+    autorandr
+     
+    (polybar.override {
+     i3Support = true;
+     pulseSupport = true;
+     }) 
+
  ];
-  # NIXOS
+    # NIXOS
   nix.settings.experimental-features = ["nix-command" "flakes"];
     
 
