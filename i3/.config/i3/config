@@ -37,6 +37,7 @@ bindsym $mod+Shift+q kill
 
 bindsym $mod+r restart
 bindsym $mod+Shift+e exec i3-msg exit
+bindsym $mod+Shift+p exec arandr
 
 # ========================
 # FOCUS (vim style)
