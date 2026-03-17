@@ -136,24 +136,24 @@ default_border pixel 1
 # GAPS
 # ========================
 
-gaps inner 5
-gaps outer 2
+gaps inner 2
+gaps outer 1
 
 # ========================
 # BAR
 # ========================
 
 bar {
+    i3bar_command i3bar --transparency
+    status_command i3status
     position top
     tray_output none
-
     colors {
-        background #000000
+        background #00000000
         statusline #ffffff
-
         focused_workspace  #89b4fa #89b4fa #1e1e2e
         active_workspace   #313244 #313244 #cdd6f4
-        inactive_workspace #181825 #181825 #6c7086
+        inactive_workspace #18182500 #18182500 #6c7086
         urgent_workspace   #f38ba8 #f38ba8 #1e1e2e
     }
 }
@@ -169,4 +169,4 @@ exec_always --no-startup-id picom
 exec_always --no-startup-id dunst
 exec_always --no-startup-id blueman-applet
 exec_always --no-startup-id nm-applet
-exec_always --no-startup-id feh --bg-fill ~/wallpapers/nix-girl2.png
+exec_always --no-startup-id feh --bg-fill ~/wallpapers/itachi2.png
