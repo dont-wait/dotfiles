@@ -35,7 +35,8 @@ bindsym $mod+Shift+d exec zathura
 
 bindsym $mod+Shift+q kill
 
-bindsym $mod+r restart
+bindsym $mod+r reload
+bindsym $mod+Shift+r restart 
 bindsym $mod+Shift+e exec i3-msg exit
 bindsym $mod+Shift+p exec arandr
 
@@ -143,22 +144,23 @@ gaps outer 1
 # BAR
 # ========================
 
-bar {
-    i3bar_command i3bar --transparency
-    status_command i3status
-    position top
-    tray_output none
-    colors {
-        background #00000000
-        statusline #ffffff
-        focused_workspace  #89b4fa #89b4fa #1e1e2e
-        active_workspace   #313244 #313244 #cdd6f4
-        inactive_workspace #18182500 #18182500 #6c7086
-        urgent_workspace   #f38ba8 #f38ba8 #1e1e2e
-    }
-}
+# bar {
+#     i3bar_command i3bar --transparency
+#     status_command i3status
+#     position top
+#     tray_output none
+#     colors {
+#         background #00000000
+#         statusline #ffffff
+#         focused_workspace  #89b4fa #89b4fa #1e1e2e
+#         active_workspace   #313244 #313244 #cdd6f4
+#         inactive_workspace #18182500 #18182500 #6c7086
+#         urgent_workspace   #f38ba8 #f38ba8 #1e1e2e
+#     }
+# }
 
-bindsym $mod+b bar mode toggle
+# bindsym $mod+b bar mode toggle
+bindsym $mod+b exec --no-startup-id polybar-msg cmd toggle
 bindsym $mod+d exec rofi -show drun 
 bindsym $mod+Shift+b exec blueman-manager
 #========================
@@ -169,4 +171,5 @@ exec_always --no-startup-id picom
 exec_always --no-startup-id dunst
 exec_always --no-startup-id blueman-applet
 exec_always --no-startup-id nm-applet
+exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec_always --no-startup-id feh --bg-fill ~/wallpapers/itachi2.png
