@@ -130,9 +130,12 @@ bindsym $mod+m exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 # ========================
 
 for_window [class="firefox"] move to workspace $ws2
-
-default_border pixel 1
-
+# default_border pixel 1
+# default_floating_border pixel 4
+# smart_borders no_gaps
+for_window [class=".*"] border pixel 1
+client.focused          #89b4fa #89b4fa #cdd6f4 #89b4fa #89b4fa
+client.unfocused        #1e1e2e #1e1e2e #6c7086 #1e1e2e #1e1e2e
 # ========================
 # GAPS
 # ========================
@@ -166,7 +169,9 @@ bindsym $mod+Shift+b exec blueman-manager
 #========================
 # AUTOSTART
 # ========================
-
+exec --no-startup-id autocutsel -fork
+exec --no-startup-id autocutsel -selection PRIMARY -fork
+exec --no-startup-id udiskie --tray &
 exec_always --no-startup-id picom
 exec_always --no-startup-id dunst
 exec_always --no-startup-id blueman-applet
