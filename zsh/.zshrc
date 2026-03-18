@@ -114,12 +114,15 @@ alias cls="clear"
 alias "sudo rm"="rm -i"
 alias lzd=lazydocker
 alias lzg=lazygit
-alias hh="~"
+alias ho="~"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {}'"
+
+# Yazi
+export EDITOR="nvim"
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	command yazi "$@" --cwd-file="$tmp"
@@ -127,10 +130,6 @@ function y() {
 	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
 	rm -f -- "$tmp"
 }
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
 # Hàm cập nhật tên window tmux theo thư mục hiện tại (chỉ lấy tên thư mục cuối)
 case $TERM in
   screen*|tmux*)
