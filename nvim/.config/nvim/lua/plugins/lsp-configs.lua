@@ -69,7 +69,16 @@ return {
                         staticcheck = true,
                         gofumpt = true,
                         completeUnimported = true, -- Tự động gợi ý cả các package chưa import
-                        usePlaceholders = true,    -- Tự động điền tham số khi chọn hàm
+                        usePlaceholders = true, -- Tự động điền tham số khi chọn hàm
+                        hints = {
+                            -- assignVariableTypes = true,
+                            -- compositeLiteralFields = true,
+                            compositeLiteralTypes = true,
+                            constantValues = true,
+                            functionTypeParameters = true,
+                            parameterNames = true,
+                            rangeVariableTypes = true,
+                        },
                     },
                 },
             }
@@ -89,6 +98,17 @@ return {
                         enableDecompilationSupport = true,
                         enableImportCompletion = true,
                         enableAnalyzersSupport = true,
+                    },
+                    inlayHintsOptions = {
+                        enableForParameters = true, -- tên param khi gọi hàm
+                        forLiteralParameters = true, -- chỉ hiện cho literal như "hello", 42
+                        forIndexerParameters = true, -- param của indexer
+                        forObjectCreationParameters = true, -- param khi new Object()
+                        forOtherParameters = true, -- các param còn lại
+                        enableForTypes = true, -- hiện type của biến var
+                        forImplicitVariableTypes = true, -- var x = ...
+                        forLambdaParameterTypes = true, -- (x) => x + 1  →  (x: int) => x + 1
+                        forImplicitObjectCreation = true, -- new() → new User()
                     },
                 },
             }
@@ -125,7 +145,7 @@ return {
                             black = { enabled = true },
                             isort = { enabled = true },
                             jedi = {
-                                environment = "./venv"
+                                environment = "./venv",
                             },
                         },
                     },
