@@ -1,16 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-OS="$(uname)"
 play_sound() {
     local file="$HOME/dotfiles/tmux/Ringing.mp3"
-    if [ "$OS" = "Darwin" ]; then
-        # macOS
-        afplay "$file" &
-    else
-        # Linux
-        paplay "$file" 2>/dev/null &
-    fi
+    mpv --no-terminal "$file" &
 }
 
 STATE_FILE="$HOME/.cache/pomo.json"
