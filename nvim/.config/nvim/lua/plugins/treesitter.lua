@@ -4,9 +4,20 @@ return {
     config = function()
         require("nvim-treesitter.config").setup({
             ensure_installed = {
-                "c", "lua", "vim", "javascript", "typescript",
-                "tsx", "html", "go", "gomod", "gowork", "gosum",
-                "java", "json", "zig",
+                "c",
+                "lua",
+                "vim",
+                "javascript",
+                "typescript",
+                "tsx",
+                "html",
+                "go",
+                "gomod",
+                "gowork",
+                "gosum",
+                "java",
+                "json",
+                "zig",
             },
             highlight = { enable = true },
         })

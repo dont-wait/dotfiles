@@ -130,17 +130,25 @@ function y() {
 	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
 	rm -f -- "$tmp"
 }
-# Hàm cập nhật tên window tmux theo thư mục hiện tại (chỉ lấy tên thư mục cuối)
-case $TERM in
-  screen*|tmux*)
-    precmd() {
-      print -Pn "\e]2;%1~\a" # Cập nhật tiêu đề terminal
-      tmux rename-window "$(basename "$PWD")"
-    }
-    ;;
-esac
+# # Hàm cập nhật tên window tmux theo thư mục hiện tại (chỉ lấy tên thư mục cuối)
+precmd() {
+  local current_dir="${PWD:t}"
+  if [[ "$current_dir" != "$_last_dir" ]]; then
+    _last_dir="$current_dir"
+    if [[ "$(tmux showw -v automatic-rename 2>/dev/null)" == "on" ]]; then
+      tmux rename-window -t "$TMUX_PANE" "$current_dir"
+    fi
+  fi
+}
 eval "$(direnv hook zsh)"
 eval "$(devbox global shellenv)"
 
 . "$HOME/.local/bin/env"
 export PATH="$HOME/.npm-global/bin:$PATH"
+
+# bun completions
+[ -s "/home/dontwait/.bun/_bun" ] && source "/home/dontwait/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

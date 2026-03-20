@@ -7,6 +7,9 @@ return {
         end,
     },
     {
+        "Hoffs/omnisharp-extended-lsp.nvim",
+    },
+    {
         "williamboman/mason-lspconfig.nvim",
         lazy = false,
         opts = {
@@ -50,6 +53,10 @@ return {
                 capabilities = capabilities,
             }
 
+            vim.lsp.config["thymeleaf"] = {
+                capabilities = capabilities,
+            }
+
             vim.lsp.config["yamlls"] = {
                 capabilities = capabilities,
             }
@@ -85,6 +92,16 @@ return {
 
             vim.lsp.config["omnisharp"] = {
                 capabilities = capabilities,
+                offset_encoding = "utf-8",
+                handlers = {
+                    ["textDocument/definition"] = require("omnisharp_extended").definition_handler,
+                    ["textDocument/references"] = require("omnisharp_extended").references_handler,
+                    ["textDocument/implementation"] = require("omnisharp_extended").implementation_handler,
+                },
+                on_attach = function(client, bufnr)
+                    client.server_capabilities.inlayHintProvider = true
+                    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+                end,
                 settings = {
                     omnisharp = {
                         enableRoslynAnalyzers = true,
