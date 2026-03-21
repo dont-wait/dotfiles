@@ -162,7 +162,7 @@ return {
                             black = { enabled = true },
                             isort = { enabled = true },
                             jedi = {
-                                environment = "./venv",
+                                environment = "./.venv",
                             },
                         },
                     },
