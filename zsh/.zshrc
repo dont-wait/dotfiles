@@ -131,15 +131,17 @@ function y() {
 	rm -f -- "$tmp"
 }
 # # Hàm cập nhật tên window tmux theo thư mục hiện tại (chỉ lấy tên thư mục cuối)
-precmd() {
-  local current_dir="${PWD:t}"
-  if [[ "$current_dir" != "$_last_dir" ]]; then
-    _last_dir="$current_dir"
-    if [[ "$(tmux showw -v automatic-rename 2>/dev/null)" == "on" ]]; then
-      tmux rename-window -t "$TMUX_PANE" "$current_dir"
-    fi
-  fi
-}
+# chpwd() {
+#   tmux rename-window -t "$TMUX_PANE" "${PWD:t}" 2>/dev/null
+# }
+#
+# # Giữ precmd để set tên lúc khởi động shell
+# precmd() {
+#   [[ -z "$_tmux_init" ]] && {
+#     _tmux_init=1
+#     tmux rename-window -t "$TMUX_PANE" "${PWD:t}" 2>/dev/null
+#   }
+# }
 eval "$(direnv hook zsh)"
 eval "$(devbox global shellenv)"
 
@@ -152,3 +154,11 @@ export PATH="$HOME/.npm-global/bin:$PATH"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
