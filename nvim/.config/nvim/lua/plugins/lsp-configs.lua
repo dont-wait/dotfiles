@@ -15,7 +15,7 @@ return {
         opts = {
             auto_install = true,
             -- manually install packages that do not exist in this list please
-            ensure_installed = { "zls", "ts_ls", "gopls", "omnisharp" },
+            ensure_installed = { "zls", "ts_ls", "gopls" },
         },
     },
     {
@@ -90,45 +90,45 @@ return {
                 },
             }
 
-            vim.lsp.config["omnisharp"] = {
-                capabilities = capabilities,
-                offset_encoding = "utf-8",
-                handlers = {
-                    ["textDocument/definition"] = require("omnisharp_extended").definition_handler,
-                    ["textDocument/references"] = require("omnisharp_extended").references_handler,
-                    ["textDocument/implementation"] = require("omnisharp_extended").implementation_handler,
-                },
-                on_attach = function(client, bufnr)
-                    client.server_capabilities.inlayHintProvider = true
-                    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-                end,
-                settings = {
-                    omnisharp = {
-                        enableRoslynAnalyzers = true,
-                        enableEditorConfigSupport = true,
-                        organizeImportsOnFormat = true,
+            --[[ 		vim.lsp.config["omnisharp"] = {
+				capabilities = capabilities,
+				offset_encoding = "utf-8",
+				handlers = {
+					["textDocument/definition"] = require("omnisharp_extended").definition_handler,
+					["textDocument/references"] = require("omnisharp_extended").references_handler,
+					["textDocument/implementation"] = require("omnisharp_extended").implementation_handler,
+				},
+				on_attach = function(client, bufnr)
+					client.server_capabilities.inlayHintProvider = true
+					vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+				end,
+				settings = {
+					omnisharp = {
+						enableRoslynAnalyzers = true,
+						enableEditorConfigSupport = true,
+						organizeImportsOnFormat = true,
 
-                        -- enableDecompilationSupport = true,
-                        -- enableImportCompletion = true,
-                    },
-                    RoslynExtensionsOptions = {
-                        enableDecompilationSupport = true,
-                        enableImportCompletion = true,
-                        enableAnalyzersSupport = true,
-                    },
-                    inlayHintsOptions = {
-                        enableForParameters = true, -- tên param khi gọi hàm
-                        forLiteralParameters = true, -- chỉ hiện cho literal như "hello", 42
-                        forIndexerParameters = true, -- param của indexer
-                        forObjectCreationParameters = true, -- param khi new Object()
-                        forOtherParameters = true, -- các param còn lại
-                        enableForTypes = true, -- hiện type của biến var
-                        forImplicitVariableTypes = true, -- var x = ...
-                        forLambdaParameterTypes = true, -- (x) => x + 1  →  (x: int) => x + 1
-                        forImplicitObjectCreation = true, -- new() → new User()
-                    },
-                },
-            }
+						enableDecompilationSupport = true,
+						enableImportCompletion = true,
+					},
+					RoslynExtensionsOptions = {
+						enableDecompilationSupport = true,
+						enableImportCompletion = true,
+						enableAnalyzersSupport = true,
+					},
+					inlayHintsOptions = {
+						enableForParameters = true, -- tên param khi gọi hàm
+						forLiteralParameters = true, -- chỉ hiện cho literal như "hello", 42
+						forIndexerParameters = true, -- param của indexer
+						forObjectCreationParameters = true, -- param khi new Object()
+						forOtherParameters = true, -- các param còn lại
+						enableForTypes = true, -- hiện type của biến var
+						forImplicitVariableTypes = true, -- var x = ...
+						forLambdaParameterTypes = true, -- (x) => x + 1  →  (x: int) => x + 1
+						forImplicitObjectCreation = true, -- new() → new User()
+					},
+				},
+			} ]]
             -- nix
             vim.lsp.config["nil_ls"] = {
                 capabilities = capabilities,
@@ -204,7 +204,6 @@ return {
                 "pylsp",
                 "bashls",
                 "asm_lsp",
-                "omnisharp",
             })
             -- lsp kepmap setting
             vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
