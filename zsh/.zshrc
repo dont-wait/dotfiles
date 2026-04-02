@@ -155,6 +155,8 @@ export PATH="$HOME/.npm-global/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+export ANDROID_SDK_ROOT=$(dirname $(dirname $(which adb)))
+export ANDROID_HOME=$ANDROID_SDK_ROOT
 
 # Load Angular CLI autocompletion.
 source <(ng completion script)

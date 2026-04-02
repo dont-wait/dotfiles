@@ -149,8 +149,8 @@ client.unfocused        #1e1e2e #1e1e2e #6c7086 #1e1e2e #1e1e2e
 # GAPS
 # ========================
 
-gaps inner 5
-gaps outer 3
+gaps inner 2
+gaps outer 1
 
 # ========================
 # BAR
