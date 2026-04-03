@@ -1,61 +1,65 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
- # Tại đây khai báo các môi trường lập trình và LSP Server
+  # Tại đây khai báo các môi trường lập trình và LSP Server
   environment.systemPackages = with pkgs; [
-     # C/C++
-  gcc
-  clang
-  gnumake
+    # C/C++
+    gcc
+    clang
+    gnumake
 
-  # Node / Web
-  nodejs
-  nodePackages.typescript-language-server
-  nodePackages.vscode-langservers-extracted
-  yarn-berry_3
+    # Node / Web
+    nodejs
+    nodePackages.typescript-language-server
+    nodePackages.vscode-langservers-extracted
+    yarn-berry_3
 
-  # Lua
-  lua-language-server
+    # Lua
+    lua-language-server
 
-  # Python
-  python3
-  pyright
+    # Python
+    python3
+    pyright
 
-  # Nix
-  nil
+    # Nix
+    nil
 
-  # Bash
-  shfmt
-  shellcheck
-  bash-language-server
+    # Bash
+    shfmt
+    shellcheck
+    bash-language-server
 
-  # Java
-  jdt-language-server
-  google-java-format
+    # Java
+    jdt-language-server
+    google-java-format
 
-  # Tools
-  pkg-config
-  ninja
-  ripgrep
-  tree-sitter
+    # Flutter
+    flutter
+    android-studio
 
-  # Git / docker
-  lazygit
-  lazydocker
-  docker-compose
+    # Tools
+    pkg-config
+    ninja
+    ripgrep
+    tree-sitter
 
-  # Extra LSP từ config cũ
-  gopls
-  gofumpt
-  stylua
-  basedpyright
-  ruff
-  nixfmt-rfc-style
-  zls
-  asm-lsp
-  websocat
+    # Git / docker
+    lazygit
+    lazydocker
+    docker-compose
 
-  lua51Packages.lua
-  lua51Packages.luarocks
- ];
+    # Extra LSP từ config cũ
+    gopls
+    gofumpt
+    stylua
+    basedpyright
+    ruff
+    nixfmt-rfc-style
+    zls
+    asm-lsp
+    websocat
+
+    lua51Packages.lua
+    lua51Packages.luarocks
+  ];
 }

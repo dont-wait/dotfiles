@@ -2,23 +2,28 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ lib, inputs, config, pkgs, ... }:
+{
+  lib,
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./languages.nix
-    ];
-  
-  
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./languages.nix
+  ];
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.kernelParams = [ 
-  "video=HDMI-A-1:1920x1080@120"
-  "i915.enable_fbc=0"
+  boot.kernelParams = [
+    "video=HDMI-A-1:1920x1080@120"
+    "i915.enable_fbc=0"
   ];
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -49,29 +54,29 @@
     LC_TIME = "en_US.UTF-8";
   };
   i18n.inputMethod = {
-   enable = true;
-   type = "fcitx5";
-   fcitx5.addons = with pkgs; [
-     fcitx5-gtk
-     #fcitx5-configtool
-     qt6Packages.fcitx5-unikey
-   ];
+    enable = true;
+    type = "fcitx5";
+    fcitx5.addons = with pkgs; [
+      fcitx5-gtk
+      #fcitx5-configtool
+      qt6Packages.fcitx5-unikey
+    ];
   };
-  
-   # Enable the X11 windowing system.
+
+  # Enable the X11 windowing system.
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = false; #turn true if u use gnome
-  
+  services.xserver.desktopManager.gnome.enable = false; # turn true if u use gnome
+
   # Enable the i3 WM
   services.xserver.windowManager.i3.enable = true;
-  
+
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   services.xserver.libinput.touchpad.naturalScrolling = true;
-  
+
   hardware.graphics.enable = true;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
@@ -84,9 +89,15 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-  
+
   # Enable Flatpak
   services.flatpak.enable = true;
+
+  # File GUI
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
+  services.tumbler.enable = true;
+  programs.dconf.enable = true;
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -105,28 +116,82 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
+  services.xserver.libinput.enable = true;
 
+  # config avahi for auto detect ip local
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      workstation = true;
+    };
+  };
+
+/*   # config gitlab
+  services.gitlab = {
+    https = true;
+    port = 443;
+    host = "nixos.local";
+
+    enable = true;
+    databasePasswordFile = pkgs.writeText "dbPassword" "zgvcyfwsxzcwr85l";
+    initialRootPasswordFile = pkgs.writeText "rootPassword" "dakqdvp4ovhksxer";
+    secrets = {
+      secretFile = pkgs.writeText "secret" "Aig5zaic";
+      otpFile = pkgs.writeText "otpsecret" "Riew9mue";
+      dbFile = pkgs.writeText "dbsecret" "we2quaeZ";
+      jwsFile = pkgs.runCommand "oidcKeyBase" { } "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
+      activeRecordPrimaryKeyFile = "/var/lib/gitlab/secrets/activeRecordPrimaryKey";
+      activeRecordDeterministicKeyFile = "/var/lib/gitlab/secrets/activeRecordDeterministicKey";
+      activeRecordSaltFile = "/var/lib/gitlab/secrets/activeRecordSalt";
+    };
+  };
+
+  services.nginx = {
+    enable = true;
+    recommendedProxySettings = true;
+    virtualHosts = {
+      localhost = {
+        locations."/".proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
+      };
+    };
+  };
+
+  systemd.services.gitlab-backup.environment.BACKUP = "dump";
+ */
   # for global user
   users.defaultUserShell = pkgs.zsh;
-  
+
   users.users.dontwait.shell = pkgs.zsh;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.dontwait = {
     isNormalUser = true;
     description = "dontwait";
-    extraGroups = [ "networkmanager" "wheel" "adbusers" "docker"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "adbusers"
+      "docker"
+      "plugdev"
+      "storage"
+      "disk"
+      "video"
+      "render"
+      "kvm"
+    ];
     packages = with pkgs; [
-    #  thunderbird
-    	docker
+      #  thunderbird
+      docker
     ];
 
   };
 
   # Install firefox.
   programs.firefox.enable = true;
-  
+
   programs.zsh.enable = true;
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
@@ -134,33 +199,35 @@
     zlib
   ];
   programs = {
-   adb.enable = true;
+    adb.enable = true;
   };
-
   programs.bash.enableCompletion = true;
 
-  nixpkgs.config.allowBroken = true; 
+  nixpkgs.config.allowBroken = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-  
+
+  nixpkgs.config.android_sdk.accept_license = true;
+
   system.userActivationScripts = {
-  stdio = {
-    text = ''
-      rm -f ~/Android/Sdk/platform-tools/adb
-      ln -s /run/current-system/sw/bin/adb ~/Android/Sdk/platform-tools/adb
-    '';
-    deps = [
-    ];
+    stdio = {
+      text = ''
+        rm -f ~/Android/Sdk/platform-tools/adb
+        ln -s /run/current-system/sw/bin/adb ~/Android/Sdk/platform-tools/adb
+      '';
+      deps = [
+      ];
     };
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    # Core tools 
+    # Core tools
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     neovim
+    vscode-fhs
     wget
     git
     dmenu
@@ -168,12 +235,11 @@
     fastfetch
     zsh
     oh-my-zsh
-    ghostty 
-    vscode-fhs
+    ghostty
     curl
     unzip
-    tmux  
-    zathura 
+    tmux
+    zathura
     discord
     home-manager
     qt6Packages.fcitx5-configtool
@@ -191,17 +257,19 @@
     gzip
     home-manager
     tree-sitter
+    pulseaudio
     edid-decode
     tree
     brave
     libreoffice-qt
     hunspell
+    rar
     staruml
     vmware-workstation
     i3
-    xclip
     # i3status
-    
+    autocutsel
+    xclip
     dunst
     feh
     pavucontrol
@@ -211,16 +279,46 @@
     blueman
     arandr
     autorandr
-     
+
     (polybar.override {
-     i3Support = true;
-     pulseSupport = true;
-     }) 
-     yazi
- ];
-    # NIXOS
-  nix.settings.experimental-features = ["nix-command" "flakes"];
-    
+      i3Support = true;
+      pulseSupport = true;
+    })
+    yazi
+    xfce.thunar
+    xfce.thunar-volman # mount USB tự động
+    gvfs # trash, network shares
+    udiskie
+    udisks2
+
+    brightnessctl # For screen brightness
+
+    mpv # audio and video
+    android-studio
+    flutter
+
+    # display card
+    intel-media-driver
+    vulkan-loader
+    intel-compute-runtime
+
+    (androidenv.composeAndroidPackages {
+      platformVersions = [ "36" ];
+      ndkVersions = [ "28.2.13676358" ];
+      buildToolsVersions = [ "35.0.0" ];
+      includeNDK = true;
+    }).androidsdk
+    antigravity-fhs
+
+    #Config gitlab
+    openssl
+
+  ];
+  # NIXOS
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -236,7 +334,11 @@
   services.openssh.enable = true;
   virtualisation.docker.enable = true;
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [
+    443
+    80
+    22
+  ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
@@ -244,13 +346,12 @@
   # VMWare config
   virtualisation.vmware.host.enable = true;
   virtualisation.vmware.guest.enable = true;
-  
+
   # Garbage Collector Setting
   nix.gc.automatic = true;
   nix.gc.dates = "daily";
   nix.gc.options = "--delete-older-than 7d";
 
-   
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
