@@ -2,20 +2,17 @@
 return {
     "seblyng/roslyn.nvim",
     ft = { "cs" },
-    ---@type RoslynNvimConfig
     opts = {
-        filewatching = "off",
+        filewatching = "roslyn",
         broad_search = true,
         lock_target = false,
         silent = false,
-    },
-    config = function(_, opts)
-        require("roslyn").setup(opts)
 
-        -- đặt lsp config ở đây
-        vim.lsp.config("roslyn", {
+        config = {
             cmd = { "roslyn-ls" },
-            capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+            capabilities = require("cmp_nvim_lsp").default_capabilities(
+                vim.lsp.protocol.make_client_capabilities()
+            ),
             on_attach = function(client, bufnr)
                 vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
             end,
@@ -52,6 +49,6 @@ return {
                     dotnet_search_reference_assemblies = true,
                 },
             },
-        })
-    end,
+        },
+    },
 }
