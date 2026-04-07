@@ -111,6 +111,7 @@ bindsym $mod+Shift+5 move container to workspace $ws5
 bindsym $mod+minus scratchpad show
 bindsym $mod+Shift+minus  move scratchpad
 bindsym $mod+Shift+space floating toggle
+bindsym $mod+f fullscreen
 # ========================
 # SCREENSHOT
 # ========================
