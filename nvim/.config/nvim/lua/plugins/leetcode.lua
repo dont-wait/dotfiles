@@ -107,4 +107,6 @@ return {
         ---@type boolean
         image_support = false,
     },
+    -- Mở mô tả đề bài nhanh bằng phím <leader>d
+    vim.keymap.set("n", "<leader>d", "<cmd>Leet desc toggle<cr>", { desc = "Đóng/Mở đề bài" }),
 }
