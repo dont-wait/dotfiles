@@ -90,45 +90,47 @@ return {
                 },
             }
 
-            --[[ 		vim.lsp.config["omnisharp"] = {
-				capabilities = capabilities,
-				offset_encoding = "utf-8",
-				handlers = {
-					["textDocument/definition"] = require("omnisharp_extended").definition_handler,
-					["textDocument/references"] = require("omnisharp_extended").references_handler,
-					["textDocument/implementation"] = require("omnisharp_extended").implementation_handler,
-				},
-				on_attach = function(client, bufnr)
-					client.server_capabilities.inlayHintProvider = true
-					vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-				end,
-				settings = {
-					omnisharp = {
-						enableRoslynAnalyzers = true,
-						enableEditorConfigSupport = true,
-						organizeImportsOnFormat = true,
-
-						enableDecompilationSupport = true,
-						enableImportCompletion = true,
-					},
-					RoslynExtensionsOptions = {
-						enableDecompilationSupport = true,
-						enableImportCompletion = true,
-						enableAnalyzersSupport = true,
-					},
-					inlayHintsOptions = {
-						enableForParameters = true, -- tên param khi gọi hàm
-						forLiteralParameters = true, -- chỉ hiện cho literal như "hello", 42
-						forIndexerParameters = true, -- param của indexer
-						forObjectCreationParameters = true, -- param khi new Object()
-						forOtherParameters = true, -- các param còn lại
-						enableForTypes = true, -- hiện type của biến var
-						forImplicitVariableTypes = true, -- var x = ...
-						forLambdaParameterTypes = true, -- (x) => x + 1  →  (x: int) => x + 1
-						forImplicitObjectCreation = true, -- new() → new User()
-					},
-				},
-			} ]]
+            -- vim.lsp.config["omnisharp"] = {
+            --     capabilities = capabilities,
+            --     offset_encoding = "utf-8",
+            --     handlers = {
+            --         ["textDocument/definition"] = require("omnisharp_extended").definition_handler,
+            --         ["textDocument/references"] = require("omnisharp_extended").references_handler,
+            --         ["textDocument/implementation"] = require("omnisharp_extended").implementation_handler,
+            --     },
+            --     on_attach = function(client, bufnr)
+            --         if client.server_capabilities.inlayHintProvider then
+            --             vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
+            --         end
+            --     end,
+            --     settings = {
+            --         omnisharp = {
+            --             enableRoslynAnalyzers = true,
+            --             enableInlayHints = false,
+            --             enableEditorConfigSupport = true,
+            --             organizeImportsOnFormat = true,
+            --             enableDecompilationSupport = true,
+            --             enableImportCompletion = true,
+            --             -- Group các tùy chọn vào ĐÚNG phân cấp omnisharp
+            --             inlayHintsOptions = {
+            --                 enableForParameters = true,
+            --                 forLiteralParameters = true,
+            --                 forIndexerParameters = true,
+            --                 forObjectCreationParameters = true,
+            --                 forOtherParameters = true,
+            --                 enableForTypes = true,
+            --                 forImplicitVariableTypes = true,
+            --                 forLambdaParameterTypes = true,
+            --                 forImplicitObjectCreation = true,
+            --             },
+            --             RoslynExtensionsOptions = {
+            --                 enableDecompilationSupport = true,
+            --                 enableImportCompletion = true,
+            --                 enableAnalyzersSupport = true,
+            --             },
+            --         },
+            --     },
+            -- }
             -- nix
             vim.lsp.config["nil_ls"] = {
                 capabilities = capabilities,
@@ -224,6 +226,7 @@ return {
                     java = "class",
                     lua = "function",
                     go = { "method", "struct", "interface" },
+                    cs = { "class", "method", "interface", "property", "struct" },
                 }
                 local symbols = symbols_map[filetype] or "function"
                 require("fzf-lua").lsp_document_symbols({ symbols = symbols })
