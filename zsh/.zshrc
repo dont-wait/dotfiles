@@ -158,6 +158,13 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export ANDROID_SDK_ROOT=$(dirname $(dirname $(which adb)))
 export ANDROID_HOME=$ANDROID_SDK_ROOT
 
+# go 
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
+# Giúp Neovim tìm thấy socket của Discord
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
+
 # Load Angular CLI autocompletion.
 source <(ng completion script)
 
