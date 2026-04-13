@@ -18,6 +18,7 @@ return {
                 "java",
                 "json",
                 "zig",
+                "c_sharp",
             },
             highlight = { enable = true },
         })
