@@ -144,7 +144,8 @@ for_window [class="firefox"] move to workspace $ws2
 # default_floating_border pixel 4
 # smart_borders no_gaps
 for_window [class=".*"] border pixel 1
-client.focused          #89b4fa #89b4fa #cdd6f4 #89b4fa #89b4fa
+# client.focused          #89b4fa #89b4fa #cdd6f4 #89b4fa #89b4fa
+client.focused          #a6adc8 #a6adc8 #11111b #a6adc8 #a6adc8
 client.unfocused        #1e1e2e #1e1e2e #6c7086 #1e1e2e #1e1e2e
 # ========================
 # GAPS
