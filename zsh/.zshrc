@@ -81,14 +81,6 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-#fzf
-source <(fzf --zsh)
-alias f=fzf
-# preview with bat
-alias fp='fzf --preview="bat --color=always {}"'
-# open neovim with select file by tab
-alias fv='nvim $(fzf -m --preview="bat --color=always {}")'
-
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -128,6 +120,14 @@ alias ho="~"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {}'"
+#fzf
+source <(fzf --zsh)
+alias f=fzf
+# preview with bat
+alias fp='fzf --preview="bat --color=always {}"'
+# open neovim with select file by tab
+alias fv='nvim $(fzf -m --preview="bat --color=always {}")'
+
 
 # Yazi
 export EDITOR="nvim"
@@ -139,17 +139,17 @@ function y() {
 	rm -f -- "$tmp"
 }
 # # Hàm cập nhật tên window tmux theo thư mục hiện tại (chỉ lấy tên thư mục cuối)
-# chpwd() {
-#   tmux rename-window -t "$TMUX_PANE" "${PWD:t}" 2>/dev/null
-# }
-#
-# # Giữ precmd để set tên lúc khởi động shell
-# precmd() {
-#   [[ -z "$_tmux_init" ]] && {
-#     _tmux_init=1
-#     tmux rename-window -t "$TMUX_PANE" "${PWD:t}" 2>/dev/null
-#   }
-# }
+chpwd() {
+  tmux rename-window -t "$TMUX_PANE" "${PWD:t}" 2>/dev/null
+}
+
+# Giữ precmd để set tên lúc khởi động shell
+precmd() {
+  [[ -z "$_tmux_init" ]] && {
+    _tmux_init=1
+    tmux rename-window -t "$TMUX_PANE" "${PWD:t}" 2>/dev/null
+  }
+}
 eval "$(direnv hook zsh)"
 eval "$(devbox global shellenv)"
 
