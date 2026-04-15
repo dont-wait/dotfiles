@@ -81,6 +81,14 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+#fzf
+source <(fzf --zsh)
+alias f=fzf
+# preview with bat
+alias fp='fzf --preview="bat --color=always {}"'
+# open neovim with select file by tab
+alias fv='nvim $(fzf -m --preview="bat --color=always {}")'
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -111,7 +119,7 @@ source $ZSH/oh-my-zsh.sh
 alias cz="nvim .zshrc"
 alias sz="source .zshrc"
 alias cls="clear"
-alias "sudo rm"="rm -i"
+alias rm="rm -i"
 alias lzd=lazydocker
 alias lzg=lazygit
 alias ho="~"
