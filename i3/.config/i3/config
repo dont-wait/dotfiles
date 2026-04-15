@@ -14,8 +14,8 @@ font pango:JetBrainsMono Nerd Font 16
 # TERMINAL
 # ========================
 
-set $term ghostty
-
+# set $term ghostty
+set $term wezterm
 bindsym $mod+Return exec $term
 # ========================
 # APP LAUNCHER
