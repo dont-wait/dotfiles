@@ -17,12 +17,13 @@ return {
 			vim.g.db_ui_show_database_navigation = 1 -- Hiện bảng, cột rõ ràng
 			vim.g.db_ui_winwidth = 35 -- Độ rộng sidebar vừa phải
 			vim.g.db_ui_auto_execute_table_helpers = 1 -- Click vào bảng là hiện data luôn
+            vim.g.db_ui_force_echo_notifications = 1
 
 			-- Tự động thực thi khi click vào table (xem 100 dòng đầu)
 			vim.g.db_ui_table_helpers = {
-				postgresql = { List = 'SELECT * FROM "{table}" LIMIT 100' },
-				mysql = { List = "SELECT * FROM `{table}` LIMIT 100" },
-				sqlserver = { List = "SELECT TOP 100 * FROM {table}" },
+				postgresql = { List = 'SELECT * FROM "{table}" LIMIT 10' },
+				mysql = { List = "SELECT * FROM `{table}` LIMIT 10" },
+				sqlserver = { List = "SELECT TOP 10 * FROM {table}" },
 			}
 			-- 2. Bảo mật & Đồng bộ (Quan trọng cho dự án công ty)
 			-- Không lưu pass vào lịch sử command
