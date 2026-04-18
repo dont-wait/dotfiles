@@ -113,6 +113,13 @@ alias sz="source .zshrc"
 alias cls="clear"
 alias rm="rm -i"
 alias lzd=lazydocker
+alias gs="git status"
+alias ga="git add"
+alias gaa="git add ."
+alias gcmsg="git commit -m"
+alias gpr="git pull origin"
+alias gf="git fetch"
+alias gp="git pull"
 alias lzg=lazygit
 alias ho="~"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -137,18 +144,6 @@ function y() {
 	IFS= read -r -d '' cwd < "$tmp"
 	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
 	rm -f -- "$tmp"
-}
-# # Hàm cập nhật tên window tmux theo thư mục hiện tại (chỉ lấy tên thư mục cuối)
-chpwd() {
-  tmux rename-window -t "$TMUX_PANE" "${PWD:t}" 2>/dev/null
-}
-
-# Giữ precmd để set tên lúc khởi động shell
-precmd() {
-  [[ -z "$_tmux_init" ]] && {
-    _tmux_init=1
-    tmux rename-window -t "$TMUX_PANE" "${PWD:t}" 2>/dev/null
-  }
 }
 eval "$(direnv hook zsh)"
 eval "$(devbox global shellenv)"
