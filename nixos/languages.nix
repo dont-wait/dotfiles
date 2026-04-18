@@ -32,10 +32,16 @@
     # Java
     jdt-language-server
     google-java-format
+    yaml-language-server
 
     # Flutter
     flutter
     android-studio
+
+    #golang
+    go
+    gopls
+    gofumpt
 
     # Tools
     pkg-config
@@ -49,8 +55,6 @@
     docker-compose
 
     # Extra LSP từ config cũ
-    gopls
-    gofumpt
     stylua
     basedpyright
     ruff
@@ -58,6 +62,8 @@
     zls
     asm-lsp
     websocat
+    rustc
+    cargo
 
     lua51Packages.lua
     lua51Packages.luarocks

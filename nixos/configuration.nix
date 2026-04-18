@@ -15,6 +15,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./languages.nix
+    ./db.nix
   ];
 
   # Bootloader.
@@ -34,8 +35,9 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
-  networking.networkmanager.enable = true;
-
+  networking.networkmanager = {
+    enable = true;
+  };
   # Set your time zone.
   time.timeZone = "Asia/Ho_Chi_Minh";
 
@@ -69,7 +71,7 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = false; # turn true if u use gnome
-
+  services.xserver.dpi = 96; # 96 (100%), 120 (125%), 144 (150%), 192 (200%)
   # Enable the i3 WM
   services.xserver.windowManager.i3.enable = true;
 
@@ -129,38 +131,9 @@
     };
   };
 
-/*   # config gitlab
-  services.gitlab = {
-    https = true;
-    port = 443;
-    host = "nixos.local";
+  # config dns
+  services.resolved.enable = true;
 
-    enable = true;
-    databasePasswordFile = pkgs.writeText "dbPassword" "zgvcyfwsxzcwr85l";
-    initialRootPasswordFile = pkgs.writeText "rootPassword" "dakqdvp4ovhksxer";
-    secrets = {
-      secretFile = pkgs.writeText "secret" "Aig5zaic";
-      otpFile = pkgs.writeText "otpsecret" "Riew9mue";
-      dbFile = pkgs.writeText "dbsecret" "we2quaeZ";
-      jwsFile = pkgs.runCommand "oidcKeyBase" { } "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
-      activeRecordPrimaryKeyFile = "/var/lib/gitlab/secrets/activeRecordPrimaryKey";
-      activeRecordDeterministicKeyFile = "/var/lib/gitlab/secrets/activeRecordDeterministicKey";
-      activeRecordSaltFile = "/var/lib/gitlab/secrets/activeRecordSalt";
-    };
-  };
-
-  services.nginx = {
-    enable = true;
-    recommendedProxySettings = true;
-    virtualHosts = {
-      localhost = {
-        locations."/".proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
-      };
-    };
-  };
-
-  systemd.services.gitlab-backup.environment.BACKUP = "dump";
- */
   # for global user
   users.defaultUserShell = pkgs.zsh;
 
@@ -192,7 +165,33 @@
   # Install firefox.
   programs.firefox.enable = true;
 
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+    interactiveShellInit = ''
+    # --- [cdb] Nhảy ngược lên thư mục cha ---
+      cdb() {
+        local target
+        if [[ -z "$1" ]]; then
+          cd ..
+          return
+        fi
+        # Nếu là số: lùi n cấp
+        if [[ "$1" =~ ^[0-9]+$ ]]; then
+          local dots=""
+          for i in {1..$1}; do dots="../$dots"; done
+          cd "$dots"
+          return
+        fi
+        # Nếu là chữ: tìm ngược theo tên
+        target=$(echo "$PWD" | grep -oEi ".*$1[^/]*" | head -n 1)
+        if [[ -n "$target" && "$target" != "$PWD" && -d "$target" ]]; then
+          cd "$target"
+        else
+          echo "❌ Không tìm thấy cấp nào tên '$1'"
+        fi
+      }
+    '';
+  };
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
     stdenv.cc.cc.lib
@@ -202,6 +201,8 @@
     adb.enable = true;
   };
   programs.bash.enableCompletion = true;
+
+  programs.nm-applet.enable = true;
 
   nixpkgs.config.allowBroken = true;
 
@@ -227,6 +228,7 @@
     # Core tools
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     neovim
+    wezterm
     vscode-fhs
     wget
     git
@@ -308,11 +310,15 @@
       buildToolsVersions = [ "35.0.0" ];
       includeNDK = true;
     }).androidsdk
-    antigravity-fhs
 
     #Config gitlab
     openssl
 
+    openvpn
+    networkmanager-openvpn
+    update-systemd-resolved
+
+    antigravity-fhs
   ];
   # NIXOS
   nix.settings.experimental-features = [
@@ -339,9 +345,13 @@
     80
     22
   ];
+  networking.firewall.trustedInterfaces = [
+    "vmnet1"
+    "vmnet8"
+  ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = true;
 
   # VMWare config
   virtualisation.vmware.host.enable = true;
