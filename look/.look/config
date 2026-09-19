@@ -4,11 +4,11 @@
 # Indexing
 file_scan_roots=Desktop,Documents,Downloads,Pictures,Videos
 file_scan_extra_roots=
-file_scan_depth=12
+file_scan_depth=8
 file_scan_limit=8000
 file_exclude_paths=
 ignored_patterns_sample=
-ignored_patterns_migrations=~/Documents/git/hospital-management-system/server/Infrastructure/Migrations/*.cs|~/Documents/git/edux/**/Migrations/*.cs
+ignored_patterns_migrations=~/Documents/git/hospital-management-system/server/Infrastructure/Migrations/*.cs|~/Documents/git/edux/**/Migrations/*.cs|/home/dontwait/Documents/git/Extras/**
 # File ignore patterns. Format: ignored_patterns_<group>=Pattern1|Pattern2|Pattern3
 # ignored_patterns_browser=~/AppData/Local/BraveSoftware/**/*.log|~/AppData/Local/Google/Chrome/**/*.tmp
 # ignored_patterns_sqlite=~/Documents/git/project/**/*.db-wal|~/Documents/git/project/**/*.db-shm
@@ -40,7 +40,7 @@ file_manager=thunar
 
 # Home-screen inner gap in px (0-24). 0 keeps the classic framed panel;
 # above 0 the home screen splits into floating tiles separated by this gap.
-inner_gap=7
+inner_gap=12
 
 # Web answers - inline answer card for question-like queries. Set false to
 # disable all network answer features and run fully offline.
@@ -51,7 +51,7 @@ ai_enabled=true
 super_actions_enabled=true
 
 # UI theme (empty = built-in default; pick one in Settings)
-ui_theme=liquid
+ui_theme=custom
 
 # Added by look update
 app_scan_roots=/usr/share/applications,/usr/local/share/applications
@@ -61,21 +61,21 @@ app_exclude_names=
 localized_app_names=false
 ui_tint_red=0.08
 ui_tint_green=0.10
-ui_tint_blue=0.12
-ui_tint_opacity=0.78
+ui_tint_blue=0.31
+ui_tint_opacity=1
 ui_blur_material=hudWindow
-ui_blur_opacity=1
+ui_blur_opacity=0.93
 ui_font_name=JetBrainsMono NF
 ui_font_size=16
 ui_font_red=0.96
 ui_font_green=0.96
 ui_font_blue=0.98
 ui_font_opacity=1
-ui_border_thickness=1.0
-ui_border_red=1.0
-ui_border_green=1.0
-ui_border_blue=1.0
-ui_border_opacity=0.1
+ui_border_thickness=0.5
+ui_border_red=0.3
+ui_border_green=0
+ui_border_blue=1
+ui_border_opacity=1
 alias_note=Notion|Obsidian|Notes|Apple Notes|Bear|Logseq|OneNote|Microsoft OneNote|Sticky Notes|Joplin
 alias_code=Visual Studio Code|VSCode|Cursor|Windsurf|IntelliJ IDEA|PyCharm|WebStorm|Neovim|Xcode|Zed|Visual Studio|Notepad++|Sublime Text
 alias_term=Terminal|iTerm|iTerm2|Ghostty|WezTerm|Alacritty|Kitty|Warp|Windows Terminal|PowerShell|Command Prompt|wsl
@@ -83,9 +83,14 @@ alias_chat=Slack|Discord|Telegram|Messages|Microsoft Teams|Teams|WhatsApp|Signal
 alias_music=Spotify|Apple Music|Music|YouTube Music|VLC|Windows Media Player|foobar2000
 alias_brow=Safari|Arc|Google Chrome|Chrome|Firefox|Brave|Microsoft Edge|Edge|Brave Browser|Vivaldi|Opera
 ui_surface=liquid
-ui_bg_image=/home/dontwait/Documents/git/nix-conf/dotfiles/bg/will.jpeg
-ui_bg_opacity=0.54
-settings_blur_multiplier=1
+ui_bg_image=/home/dontwait/Documents/git/nix-conf/dotfiles/bg/bg1.jpg
+ui_bg_opacity=0.17
+settings_blur_multiplier=0.96
 ui_blur_style=high_contrast
-launch_at_login=true
-ui_bg_blur=0.8
+launch_at_login=false
+ui_bg_blur=3
+
+# Added by look update
+query_retention_seconds=2
+ui_surface_radius=1.5
+ui_bg_layout=fill
