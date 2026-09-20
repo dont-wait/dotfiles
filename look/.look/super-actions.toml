@@ -10,16 +10,28 @@
 layout = [
     "lslot       lslot       bluetooth   wifi        battery     weather",
     "lslot       lslot       ram       disk   sound weather",
-    "lock         restart     shutdown    nowplaying  nowplaying  nowplaying",
+    "lock         restart     lightscreen    nowplaying  nowplaying  nowplaying",
 ]
 
-# Show and toggle mute on the default output device. Linux, PipeWire.
+# Show and toggle a custom lightscreen and mute tile. Linux, PipeWire.
 #
 # Merge into ~/.look/super-actions.toml: put "sound" somewhere in the `layout`
 # drawing, then paste this block onto the end of the file.
 #
 # `value` supplies the current state and matching icon. Look refreshes it again
 # immediately after `press`, so the tile follows the new state without waiting.
+
+[tiles.lightscreen]
+value = '''
+if pgrep -x wlsunset >/dev/null 2>&1; then
+    printf '{"value":"ON","caption":"LIGHTSCREEN","state":"on"}'
+else
+    printf '{"value":"OFF","caption":"LIGHTSCREEN","state":"off"}'
+fi
+'''
+mnemonic = "I"
+press = "if pgrep -x wlsunset >/dev/null 2>&1; then pkill -x wlsunset; else nohup wlsunset -l 10.82 -L 106.62 -t 3500 -T 6500 >/tmp/look-wlsunset.log 2>&1 </dev/null & fi"
+title = "Lightscreen"
 
 [tiles.sound]
 value = '''
