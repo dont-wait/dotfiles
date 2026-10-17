@@ -6,7 +6,7 @@ file_scan_roots=Desktop,Documents,Downloads,Pictures,Videos
 file_scan_extra_roots=
 file_scan_depth=12
 file_scan_limit=50000
-file_exclude_paths=
+file_exclude_paths=/home/dontwait/Documents/git/winget-pkgs
 ignored_patterns_sample=
 ignored_patterns_migrations=~/Documents/git/hospital-management-system/server/Infrastructure/Migrations/*.cs|~/Documents/git/edux/**/Migrations/*.cs|/home/dontwait/Documents/git/Extras/**
 # File ignore patterns. Format: ignored_patterns_<group>=Pattern1|Pattern2|Pattern3
@@ -35,12 +35,12 @@ clipboard_history_limit=15
 # Acted on from the row's action menu, and from Cmd+E / Cmd+T (Ctrl elsewhere).
 text_editor=nvim
 code_editor=nvim
-terminal=wezterm
+terminal=ghostty
 file_manager=thunar
 
 # Home-screen inner gap in px (0-24). 0 keeps the classic framed panel;
 # above 0 the home screen splits into floating tiles separated by this gap.
-inner_gap=12
+inner_gap=10
 
 # Web answers - inline answer card for question-like queries. Set false to
 # disable all network answer features and run fully offline.
@@ -51,31 +51,31 @@ ai_enabled=true
 super_actions_enabled=true
 
 # UI theme (empty = built-in default; pick one in Settings)
-ui_theme=custom
+ui_theme=kanagawa
 
 # Added by look update
 app_scan_roots=/usr/share/applications,/usr/local/share/applications
-app_scan_depth=3
+app_scan_depth=10
 app_exclude_paths=
 app_exclude_names=
 localized_app_names=false
-ui_tint_red=0.08
-ui_tint_green=0.10
-ui_tint_blue=0.09
-ui_tint_opacity=1
+ui_tint_red=0.09
+ui_tint_green=0.09
+ui_tint_blue=0.11
+ui_tint_opacity=0.93
 ui_blur_material=hudWindow
-ui_blur_opacity=0.95
-ui_font_name=JetBrainsMono NF
+ui_blur_opacity=0.66
+ui_font_name=Inconsolata Nerd Font
 ui_font_size=17
-ui_font_red=0.96
-ui_font_green=0.96
-ui_font_blue=0.61
-ui_font_opacity=1
-ui_border_thickness=2.5
-ui_border_red=0.87
-ui_border_green=1
-ui_border_blue=1
-ui_border_opacity=0.73
+ui_font_red=0.94
+ui_font_green=0.85
+ui_font_blue=0.57
+ui_font_opacity=1.00
+ui_border_thickness=1.50
+ui_border_red=0.86
+ui_border_green=0.84
+ui_border_blue=0.73
+ui_border_opacity=0.86
 alias_note=Notion|Obsidian|Notes|Apple Notes|Bear|Logseq|OneNote|Microsoft OneNote|Sticky Notes|Joplin
 alias_code=Visual Studio Code|VSCode|Cursor|Windsurf|IntelliJ IDEA|PyCharm|WebStorm|Neovim|Xcode|Zed|Visual Studio|Notepad++|Sublime Text
 alias_term=Terminal|iTerm|iTerm2|Ghostty|WezTerm|Alacritty|Kitty|Warp|Windows Terminal|PowerShell|Command Prompt|wsl
@@ -83,15 +83,25 @@ alias_chat=Slack|Discord|Telegram|Messages|Microsoft Teams|Teams|WhatsApp|Signal
 alias_music=Spotify|Apple Music|Music|YouTube Music|VLC|Windows Media Player|foobar2000
 alias_brow=Safari|Arc|Google Chrome|Chrome|Firefox|Brave|Microsoft Edge|Edge|Brave Browser|Vivaldi|Opera
 ui_surface=
-ui_bg_image=/home/dontwait/Pictures/2way.jpg
-ui_bg_opacity=0.44
+ui_bg_image=
+ui_bg_opacity=0.50
 settings_blur_multiplier=0.98
 ui_blur_style=high_contrast
 launch_at_login=false
-ui_bg_blur=1.2
+ui_bg_blur=1.9
 
 # Added by look update
-query_retention_seconds=2
-ui_surface_radius=1.8
-ui_bg_layout=stretch
+query_retention_seconds=1
+ui_surface_radius=2.1
+ui_bg_layout=fill
 backend_log_level=debug
+layout=split
+animations_enabled=true
+ui_compositor_blur=true
+
+# Added by look update
+hints_enabled=false
+search_placeholder=Kafka still sleeping
+pomo_sessions=focus:30:Deep%20Work,break:5:Short%20Break,focus:30:Review,break:5:Short%20Break,focus:30:Wrap%20Up,break:15:Long%20Break,focus:30:Focus
+pomo_timer_style=modern
+pomo_music_folder=

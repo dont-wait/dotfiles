@@ -4,32 +4,45 @@
 # Indexing
 file_scan_roots=Desktop,Documents,Downloads,Pictures,Videos
 file_scan_extra_roots=
-file_scan_depth=4
-file_scan_limit=8000
-file_exclude_paths=
+file_scan_depth=10
+file_scan_limit=50000
+file_exclude_paths=/home/dontwait/Documents/git/winget-pkgs
 ignored_patterns_sample=
 # File ignore patterns. Format: ignored_patterns_<group>=Pattern1|Pattern2|Pattern3
 # ignored_patterns_browser=~/AppData/Local/BraveSoftware/**/*.log|~/AppData/Local/Google/Chrome/**/*.tmp
 # ignored_patterns_sqlite=~/Documents/git/project/**/*.db-wal|~/Documents/git/project/**/*.db-shm
 lazy_indexing_enabled=true
-skip_dir_names=node_modules,target,build,dist,.git,vendor,out,coverage,tmp,cache,venv, Extras
+skip_dir_names=node_modules,target,build,dist,.git,vendor,out,coverage,tmp,cache,venv
 
-# Arch (and other affected stacks) - workarounds for WebKitGTK ghost rendering.
-# arch_disable_gpu forces HardwareAccelerationPolicy::Never (needs restart);
-# arch_disable_blur drops backdrop-filter for an opaque tint. Both default off;
-# flip if you see slider trails or overlapping popovers.
-arch_disable_gpu=false
-arch_disable_blur=false
+# Rendering - workarounds for WebKitGTK ghost rendering (Arch, Ubuntu, VMs).
+# disable_gpu_compositing forces HardwareAccelerationPolicy::Never (needs
+# restart); disable_blur_effect drops the remaining filters for an opaque
+# tint. Both default off; flip if you see slider trails or overlapping
+# popovers. Older configs use arch_disable_gpu / arch_disable_blur,
+# which are still read.
+disable_gpu_compositing=false
+disable_blur_effect=false
 
 # Running apps switcher: none, right
 running_apps_placement=right
 
+# How long the main query survives while Look is hidden, in seconds. 0
+# clears it on every hide; a negative value keeps it indefinitely.
+query_retention_seconds=5
+
 # Clipboard history size (10-100). Out-of-range values fall back to 10.
 clipboard_history_limit=10
 
+# How many copied images ci" keeps (5-50). Each one is a file on disk,
+# so this is capped well below the text history.
+clipboard_image_limit=20
+
 # Home-screen inner gap in px (0-24). 0 keeps the classic framed panel;
 # above 0 the home screen splits into floating tiles separated by this gap.
-inner_gap=7
+inner_gap=6
+
+# Window layout: split (results + preview) or compact (smaller, results only)
+layout=split
 
 # Web answers - inline answer card for question-like queries. Set false to
 # disable all network answer features and run fully offline.
@@ -38,6 +51,10 @@ ai_enabled=true
 # Super actions - empty-state launchpad of quick toggles / actions. Set
 # false to hide the strip and disable its keyboard accelerators.
 super_actions_enabled=true
+
+# Launcher animations - the arrival, the entrance staggers, the selection
+# glide. false shows every change instantly. Same key as macOS.
+animations_enabled=false
 
 # UI theme (empty = built-in default; pick one in Settings)
 ui_theme=liquid
@@ -48,40 +65,50 @@ app_scan_depth=3
 app_exclude_paths=
 app_exclude_names=
 localized_app_names=false
-ui_tint_red=0.08
-ui_tint_green=0.10
-ui_tint_blue=0.16
+ui_tint_red=0.1
+ui_tint_green=0.13
+ui_tint_blue=0.2
 ui_tint_opacity=0.78
 ui_blur_material=hudWindow
-ui_blur_opacity=0.95
-ui_font_name=DejaVu Sans
+ui_blur_opacity=0.24
+ui_font_name=JetBrainsMono NF
 ui_font_size=14
-ui_font_red=0.96
-ui_font_green=0.96
-ui_font_blue=0.98
+ui_font_red=0.98
+ui_font_green=0.98
+ui_font_blue=1
 ui_font_opacity=1
-ui_border_thickness=1.0
-ui_border_red=1.0
-ui_border_green=1.0
-ui_border_blue=1.0
+ui_border_thickness=1
+ui_border_red=1
+ui_border_green=1
+ui_border_blue=1
 ui_border_opacity=0.1
-alias_note=Notion|Obsidian|Notes|Apple Notes|Bear|Logseq|OneNote|Microsoft OneNote|Sticky Notes|Joplin
 alias_code=Visual Studio Code|VSCode|Cursor|Windsurf|IntelliJ IDEA|PyCharm|WebStorm|Neovim|Xcode|Zed|Visual Studio|Notepad++|Sublime Text
 alias_term=Terminal|iTerm|iTerm2|Ghostty|WezTerm|Alacritty|Kitty|Warp|Windows Terminal|PowerShell|Command Prompt|wsl
 alias_chat=Slack|Discord|Telegram|Messages|Microsoft Teams|Teams|WhatsApp|Signal|Zoom
 alias_music=Spotify|Apple Music|Music|YouTube Music|VLC|Windows Media Player|foobar2000
 alias_brow=Safari|Arc|Google Chrome|Chrome|Firefox|Brave|Microsoft Edge|Edge|Brave Browser|Vivaldi|Opera
+ui_bg_opacity=0.17
+settings_blur_multiplier=0.53
+
+ui_surface_radius=1.6
 
 # Added by look update
+#alias_note=Notion|Obsidian|Notes|Apple Notes|Bear|Logseq|OneNote|Microsoft OneNote|Sticky Notes|Joplin
 ui_surface=liquid
-settings_blur_multiplier=0.97
-ui_surface_radius=1.4
-ui_bg_image=
-ui_bg_blur=2.5
+ui_bg_image=/home/dontwait/Documents/git/nix-conf/dotfiles/bg/bg1.jpg
+ui_bg_blur=0
+backend_log_level=debug
+ui_compositor_blur=true
+ui_bg_layout=fill
 
 # Added by look update
-query_retention_seconds=2
+ui_blur_style=high_contrast
+launch_at_login=false
 
 # Added by look update
-auto_update_enable=1
-ui_bg_layout=stretch
+hints_enabled=true
+search_placeholder=Type whatever you want
+
+
+# Added by look update
+translate_languages=ja,vi, ,en,ja,ja,hahah

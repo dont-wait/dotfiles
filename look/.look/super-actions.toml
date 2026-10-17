@@ -8,9 +8,8 @@
 # 5 rows and 6 columns. Delete this file to go back to these defaults.
 
 layout = [
-    "lslot       lslot       bluetooth   wifi        battery     weather",
-    "lslot       lslot       ram       disk   sound weather",
-    "lock         restart     lightscreen    nowplaying  nowplaying  nowplaying",
+    "lslot       lslot       bluetooth   lock        shutdown",
+    "lslot       lslot       nowplaying       nowplaying  nowplaying",
 ]
 
 # Show and toggle a custom lightscreen and mute tile. Linux, PipeWire.
