@@ -1,4 +1,5 @@
 [drop-branch]
+enabled = false
 name = "Delete branch"
 confirm = "Delete local branch {id}?"
 do = ["git -C {parent.path} branch -d {id}"]

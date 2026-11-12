@@ -1,4 +1,3 @@
-
 # Unpack an archive, or pack a folder, wherever Look already found it.
 #
 # `applies` is what makes these different from every other example here: the
@@ -65,4 +64,3 @@ icon = "🗜"
 applies = { only = "dirs" }
 confirm = "Create {title}.rar beside it?"
 do = ["cd \"$(dirname {path})\" && rar a -idq {path}.rar \"$(basename {path})\""]
-

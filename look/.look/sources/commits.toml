@@ -1,4 +1,5 @@
 [commits]
+enabled = false
 name = "Commits"
 icon = "📜"
 run = "git -C {path} log -30 --date=short --format='%h%x09%s%x09%ad %an'"

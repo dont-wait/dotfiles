@@ -8,7 +8,7 @@
 # 5 rows and 6 columns. Delete this file to go back to these defaults.
 
 layout = [
-    "lslot       lslot       bluetooth   lock        shutdown",
+    "lslot       lslot       ram   lock        shutdown",
     "lslot       lslot       nowplaying       nowplaying  nowplaying",
 ]
 
