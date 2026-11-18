@@ -1,0 +1,82 @@
+# Your OpenVPN profiles, as rows. Enter connects, and a second row disconnects.
+#
+# Point `~/vpn` in the `run` below at the folder that holds your `.ovpn` files.
+# That is the one thing here that is yours rather than the author's; the
+# installer asks for it, or edit it by hand. Subfolders are not searched.
+
+[openvpn]
+name    = "OpenVPN profiles"
+aliases = ["vpn"]
+icon    = "🔐"
+format  = "json"
+
+# One row per `.ovpn` file in the folder, with the file's path as the row's id.
+# This is a `run` rather than a `dir` on purpose: a `dir` row is a real file,
+# and Look's Linux app shows a file's own panel for those instead of `preview`
+# below. A `run` row is declared, so the preview and the verbs below act on it.
+# The list is read when Look reloads, so a profile you add shows up after one.
+run = '''for f in ~/vpn/*.ovpn; do [ -e "$f" ] || continue
+  jq -nc --arg id "$f" --arg t "$(basename "$f" .ovpn)" '{id: $id, title: $t, icon: "🔐", subtitle: $id}'
+done'''
+
+# openvpn needs root to create the tunnel, and a launcher has no terminal to
+# type a password into: steps get no stdin and no TTY. So Enter opens a terminal
+# window running `sudo`, you type the password there, and the window closes
+# once the tunnel is handed to the background. `kitty` is the author's terminal;
+# the installer asks for yours. How a terminal takes a command differs: kitty
+# and foot run `kitty sudo ...`, ghostty needs `ghostty -e sudo ...`, wezterm
+# `wezterm start -- sudo ...`.
+#
+# `--daemon` hands the tunnel to the background, so the window does not stay
+# open for as long as you are connected. Drop it to watch the log live: the
+# window then stays, and closing it disconnects. `--cd` is the profile's own
+# folder, so a config that names `ca.crt` or `ta.key` by a relative path still
+# finds them. The log goes to the journal under the name look-openvpn:
+#
+#   journalctl -t look-openvpn -f
+#
+# A profile that asks for a password (`auth-user-pass` with no file after it)
+# is answered in that same window only without --daemon. With --daemon, name a
+# credentials file or put the login in the profile.
+open = '''kitty sudo openvpn --cd "$(dirname {id})" --config {id} --daemon look-openvpn'''
+
+# Whether this profile is connected comes first, then where it points and what
+# is running. bin/openvpn-preview prints the connection lines only, never the
+# certificates and keys a profile often embeds.
+preview = "~/.look/bin/openvpn-preview {id}"
+
+
+# Not tied to a row, so it is a row of its own: type `ovpnoff`. It ends every
+# OpenVPN process, including ones you started yourself, hence the question.
+[openvpn-disconnect]
+name    = "OpenVPN disconnect"
+aliases = ["ovpnoff"]
+icon    = "🔌"
+confirm = "Disconnect every OpenVPN tunnel?"
+do      = ["kitty sudo pkill -x openvpn"]
+
+
+# What the installer asks for, so the folder arrives pointing at your machine. It
+# names a real value, so the file still works copied in by hand.
+
+[[setup]]
+label = "Folder with your .ovpn files"
+type  = "folder"
+block = "openvpn"
+key   = "run"
+match = "~/vpn"
+note  = "Profiles must end in .ovpn. One level deep."
+
+[[setup]]
+label = "Terminal that opens to ask for the sudo password (connect)"
+block = "openvpn"
+key   = "open"
+match = "kitty"
+note  = "kitty, foot. ghostty needs 'ghostty -e', wezterm 'wezterm start --'."
+
+[[setup]]
+label = "Terminal that opens to ask for the sudo password (disconnect)"
+block = "openvpn-disconnect"
+key   = "do"
+match = "kitty"
+note  = "Same as above."

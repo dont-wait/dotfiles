@@ -1,0 +1,63 @@
+#!/bin/sh
+# The panel for one OpenVPN profile. Declared by ~/.look/sources/openvpn.toml.
+#
+#   openvpn-preview <profile.ovpn>
+#
+# The line you came for comes first, with nothing in front of it: is this
+# profile connected. Then a label column for what supports it. A preview's
+# output is drawn as plain text, so that column is the only hierarchy there is.
+#
+# It reads the connection lines and nothing else. A profile usually embeds its
+# certificates and keys, and none of that belongs in a panel.
+set -u
+
+file="${1:-}"
+[ -n "$file" ] || { echo "usage: openvpn-preview <profile.ovpn>" >&2; exit 1; }
+[ -r "$file" ] || { echo "cannot read $file" >&2; exit 1; }
+
+base=$(basename "$file")
+name=${base%.ovpn}
+
+field() { printf '%-8s%s\n' "$1" "$2"; }
+
+# First word, exactly: a commented-out `#remote` or `; remote` never matches.
+remote=$(awk '$1 == "remote" { print $2; exit }' "$file")
+rport=$(awk '$1 == "remote" { print $3; exit }' "$file")
+rproto=$(awk '$1 == "remote" { print $4; exit }' "$file")
+port=$(awk '$1 == "port" { print $2; exit }' "$file")
+proto=$(awk '$1 == "proto" { print $2; exit }' "$file")
+
+# A `remote` line may carry its own port and protocol; a bare one falls back to
+# the standalone directives, and then to OpenVPN's own defaults.
+port=${rport:-${port:-1194}}
+proto=${rproto:-${proto:-udp}}
+
+# The process started with this profile, found by its file name. Matches a
+# profile started by hand too, which is the useful answer.
+running=$(pgrep -ax openvpn 2>/dev/null | grep -F -- "$base" | head -n 1)
+others=$(pgrep -ax openvpn 2>/dev/null | grep -v -F -- "$base")
+
+if [ -n "$running" ]; then
+    pid=${running%% *}
+    echo "● Connected"
+else
+    echo "○ Not connected"
+fi
+
+field "Profile" "$name"
+[ -n "$remote" ] && field "Remote" "$remote:$port  $proto"
+
+if [ -n "$running" ]; then
+    up=$(ps -o etime= -p "$pid" 2>/dev/null | tr -d ' ')
+    [ -n "$up" ] && field "Up" "$up"
+    # Which tunnel is this one's is not knowable from outside, so every tun/tap
+    # that has an address is listed.
+    ip -o -4 addr show 2>/dev/null | awk '$2 ~ /^(tun|tap)/ { print "Tunnel  " $2 "  " $4 }'
+    field "PID" "$pid"
+fi
+
+if [ -n "$others" ]; then
+    echo
+    echo "Also running:"
+    printf '%s\n' "$others" | cut -c1-70 | sed 's/^/  /'
+fi

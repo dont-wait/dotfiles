@@ -87,7 +87,7 @@ alias_term=Terminal|iTerm|iTerm2|Ghostty|WezTerm|Alacritty|Kitty|Warp|Windows Te
 alias_chat=Slack|Discord|Telegram|Messages|Microsoft Teams|Teams|WhatsApp|Signal|Zoom
 alias_music=Spotify|Apple Music|Music|YouTube Music|VLC|Windows Media Player|foobar2000
 alias_brow=Safari|Arc|Google Chrome|Chrome|Firefox|Brave|Microsoft Edge|Edge|Brave Browser|Vivaldi|Opera
-ui_bg_opacity=0.17
+ui_bg_opacity=0.16
 settings_blur_multiplier=0.97
 
 ui_surface_radius=1.6
@@ -95,8 +95,8 @@ ui_surface_radius=1.6
 # Added by look update
 #alias_note=Notion|Obsidian|Notes|Apple Notes|Bear|Logseq|OneNote|Microsoft OneNote|Sticky Notes|Joplin
 ui_surface=
-ui_bg_image=
-ui_bg_blur=0
+ui_bg_image=/home/dontwait/Documents/git/nix-conf/dotfiles/bg/power-chainsaw-man-night-sky-clipart-desktop-wallpaper-4k.jpg
+ui_bg_blur=2.4
 backend_log_level=debug
 ui_compositor_blur=true
 ui_bg_layout=fill
